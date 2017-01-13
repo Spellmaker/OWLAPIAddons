@@ -9,6 +9,24 @@ import java.util.Set;
 
 /**
  * Provides convenience functions for intuitive ontology building in code
+ * Basic usage example:
+ * <pre>
+ *     {@code
+ *     import static de.uniulm.in.ki.mbrenner.owlapiaddons.construction.OWLConstructor.*;
+ *     import org.semanticweb.owlapi.model.*;
+ *
+ *     public class Main{
+ *         public static void main(String[] args){
+ *             setPrefix("http://example.org/onto#");
+ *
+ *             OWLOntology o = ontology(subClassOf("A", "B"));
+ *         }
+ *     }
+ *     }
+ *
+ * </pre>
+ *
+ *
  * Created by Markus Brenner on 07.10.2016.
  */
 public class OWLConstructor {
@@ -41,30 +59,95 @@ public class OWLConstructor {
         return data.getOWLObjectProperty(IRI.create(prefix + name));
     }
 
+    /**
+     * Creates a new OWLIndividual
+     * @param name The name of the OWLIndividual
+     * @return A named OWLIndividual
+     */
     public static OWLIndividual individual(String name){
         return data.getOWLNamedIndividual(IRI.create(prefix + name));
     }
 
+    /**
+     * Creates a subClass axiom
+     * @param sub The sub class
+     * @param sup The super class
+     * @return A OWLSubClassOfAxiom
+     */
     public static OWLSubClassOfAxiom subClassOf(OWLClassExpression sub, OWLClassExpression sup){
         return data.getOWLSubClassOfAxiom(sub, sup);
     }
 
+    /**
+     * Creates a subClass axiom
+     * @param sub The sub class, will be used to generate an OWLClass
+     * @param sup The super class, will be used to generate an OWLClass
+     * @return A OWLSubClassOfAxiom
+     */
     public static OWLSubClassOfAxiom subClassOf(String sub, String sup){return subClassOf(concept(sub), concept(sup));}
+
+    /**
+     * Creates a subClass axiom
+     * @param sub The sub class
+     * @param sup The super class, will be used to generate an OWLClass
+     * @return A OWLSubClassOfAxiom
+     */
     public static OWLSubClassOfAxiom subClassOf(OWLClassExpression sub, String sup){return subClassOf((sub), concept(sup));}
+
+    /**
+     * Creates a subClass axiom
+     * @param sub The sub class, will be used to generate an OWLClass
+     * @param sup The super class
+     * @return A OWLSubClassOfAxiom
+     */
     public static OWLSubClassOfAxiom subClassOf(String sub, OWLClassExpression sup){return subClassOf(concept(sub), (sup));}
 
+    /**
+     * Creates a some values from axiom
+     * @param prop The property
+     * @param filler The filler
+     * @return A OWLObjectSomeValuesFromAxiom
+     */
     public static OWLObjectSomeValuesFrom some(OWLObjectPropertyExpression prop, OWLClassExpression filler){
         return data.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
+    /**
+     * Creates a some values from axiom
+     * @param prop The property
+     * @param filler The filler
+     * @return A OWLObjectSomeValuesFromAxiom
+     */
     public static OWLObjectSomeValuesFrom some(String prop, String filler){return some(property(prop), concept(filler));}
+    /**
+     * Creates a some values from axiom
+     * @param prop The property
+     * @param filler The filler
+     * @return A OWLObjectSomeValuesFromAxiom
+     */
     public static OWLObjectSomeValuesFrom some(OWLObjectPropertyExpression prop, String filler){return some((prop), concept(filler));}
+    /**
+     * Creates a some values from axiom
+     * @param prop The property
+     * @param filler The filler
+     * @return A OWLObjectSomeValuesFromAxiom
+     */
     public static OWLObjectSomeValuesFrom some(String prop, OWLClassExpression filler){return some(property(prop), (filler));}
 
+    /**
+     * Creates a concept intersection
+     * @param classes A set of class expressions
+     * @return An OWLObjectIntersectionOfAxiom
+     */
     public static OWLClassExpression and(OWLClassExpression...classes){
         return data.getOWLObjectIntersectionOf(classes);
     }
 
+    /**
+     * Creates a concept intersection
+     * @param classes A set of class expressions
+     * @return An OWLObjectIntersectionOfAxiom
+     */
     public static OWLClassExpression and(String...classes){
         OWLClassExpression[] classes2 = new OWLClassExpression[classes.length];
         for(int i = 0; i < classes.length; i++) classes2[i] = concept(classes[i]);
