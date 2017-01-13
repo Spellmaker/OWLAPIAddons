@@ -174,6 +174,25 @@ public class OWLConstructor {
     public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectProperty prop, String subject, OWLIndividual object){return hasA((prop), individual(subject), (object));}
     public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectProperty prop, OWLIndividual subject, String object){return hasA((prop), (subject), individual(object));}
 
+    /**
+     * Creates the complement of the provided concept
+     * @param oce A class expression
+     * @return A OWLObjectComplementOf of the class expression
+     */
+    public static OWLClassExpression not(OWLClassExpression oce){
+        return data.getOWLObjectComplementOf(oce);
+    }
+
+    /**
+     * Creates the complement of the provided concept name
+     * @param oce The name for which a OWLClass should be generated
+     * @return A OWLObjectComplementOf of the generated OWLClass
+     */
+    public static OWLClassExpression not(String oce){
+        return not(concept(oce));
+    }
+
+
     public static OWLOntology ontology(OWLAxiom...axioms){
         Set<OWLAxiom> ax = new HashSet<>();
         Arrays.stream(axioms).forEach(x -> ax.add(x));
