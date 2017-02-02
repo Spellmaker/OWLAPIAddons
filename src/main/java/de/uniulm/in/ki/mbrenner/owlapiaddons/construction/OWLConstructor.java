@@ -6,6 +6,7 @@ import org.semanticweb.owlapi.model.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Provides convenience functions for intuitive ontology building in code
@@ -103,41 +104,74 @@ public class OWLConstructor {
     public static OWLSubClassOfAxiom subClassOf(String sub, OWLClassExpression sup){return subClassOf(concept(sub), (sup));}
 
     /**
-     * Creates a some values from axiom
+     * Creates a some values from object
      * @param prop The property
      * @param filler The filler
-     * @return A OWLObjectSomeValuesFromAxiom
+     * @return A OWLObjectSomeValuesFrom object
      */
     public static OWLObjectSomeValuesFrom some(OWLObjectPropertyExpression prop, OWLClassExpression filler){
         return data.getOWLObjectSomeValuesFrom(prop, filler);
     }
 
     /**
-     * Creates a some values from axiom
+     * Creates a some values from object
      * @param prop The property
      * @param filler The filler
-     * @return A OWLObjectSomeValuesFromAxiom
+     * @return A OWLObjectSomeValuesFrom object
      */
     public static OWLObjectSomeValuesFrom some(String prop, String filler){return some(property(prop), concept(filler));}
     /**
-     * Creates a some values from axiom
+     * Creates a some values from object
      * @param prop The property
      * @param filler The filler
-     * @return A OWLObjectSomeValuesFromAxiom
+     * @return A OWLObjectSomeValuesFrom object
      */
     public static OWLObjectSomeValuesFrom some(OWLObjectPropertyExpression prop, String filler){return some((prop), concept(filler));}
     /**
-     * Creates a some values from axiom
+     * Creates a some values from object
      * @param prop The property
      * @param filler The filler
-     * @return A OWLObjectSomeValuesFromAxiom
+     * @return A OWLObjectSomeValuesFrom object
      */
     public static OWLObjectSomeValuesFrom some(String prop, OWLClassExpression filler){return some(property(prop), (filler));}
 
     /**
+     * Creates an all values from object
+     * @param prop The property
+     * @param filler The filler
+     * @return A OWLObjectAllValuesFrom object
+     */
+    public static OWLObjectAllValuesFrom all(OWLObjectPropertyExpression prop, OWLClassExpression filler){
+        return data.getOWLObjectAllValuesFrom(prop, filler);
+    }
+
+    /**
+     * Creates an all values from object
+     * @param prop The property
+     * @param filler The filler
+     * @return A OWLObjectAllValuesFrom object
+     */
+    public static OWLObjectAllValuesFrom all(String prop, String filler){return all(property(prop), concept(filler));}
+    /**
+     * Creates an all values from object
+     * @param prop The property
+     * @param filler The filler
+     * @return A OWLObjectAllValuesFrom object
+     */
+    public static OWLObjectAllValuesFrom all(OWLObjectPropertyExpression prop, String filler){return all((prop), concept(filler));}
+    /**
+     * Creates an all values from object
+     * @param prop The property
+     * @param filler The filler
+     * @return A OWLObjectAllValuesFrom object
+     */
+    public static OWLObjectAllValuesFrom all(String prop, OWLClassExpression filler){return all(property(prop), (filler));}
+
+
+    /**
      * Creates a concept intersection
      * @param classes A set of class expressions
-     * @return An OWLObjectIntersectionOfAxiom
+     * @return An OWLObjectIntersectionOf object
      */
     public static OWLClassExpression and(OWLClassExpression...classes){
         return data.getOWLObjectIntersectionOf(classes);
@@ -146,12 +180,32 @@ public class OWLConstructor {
     /**
      * Creates a concept intersection
      * @param classes A set of class expressions
-     * @return An OWLObjectIntersectionOfAxiom
+     * @return An OWLObjectIntersectionOf object
      */
     public static OWLClassExpression and(String...classes){
         OWLClassExpression[] classes2 = new OWLClassExpression[classes.length];
         for(int i = 0; i < classes.length; i++) classes2[i] = concept(classes[i]);
         return and(classes2);
+    }
+
+    /**
+     * Creates a concept union
+     * @param classes A set of class expressions
+     * @return An OWLObjectUnionOf object
+     */
+    public static OWLClassExpression or(OWLClassExpression...classes){
+        return data.getOWLObjectUnionOf(classes);
+    }
+
+    /**
+     * Creates a concept union
+     * @param classes A set of class expressions
+     * @return An OWLObjectUnionOf object
+     */
+    public static OWLClassExpression or(String...classes){
+        OWLClassExpression[] classes2 = new OWLClassExpression[classes.length];
+        for(int i = 0; i < classes.length; i++) classes2[i] = concept(classes[i]);
+        return or(classes2);
     }
 
     public static OWLClassAssertionAxiom isA(OWLClassExpression oce, OWLIndividual ind){
@@ -192,16 +246,39 @@ public class OWLConstructor {
         return not(concept(oce));
     }
 
-
     public static OWLOntology ontology(OWLAxiom...axioms){
-        Set<OWLAxiom> ax = new HashSet<>();
-        Arrays.stream(axioms).forEach(x -> ax.add(x));
         OWLOntologyManager m = OWLManager.createOWLOntologyManager();
         try {
-            return m.createOntology(ax);
+            return m.createOntology(axioms(axioms));
         }
         catch(OWLOntologyCreationException e){
             return null;
         }
+    }
+
+    public static Set<OWLAxiom> axioms(OWLAxiom...axioms){
+        Set<OWLAxiom> ax = new HashSet<>();
+        Arrays.stream(axioms).forEach(x -> ax.add(x));
+        return ax;
+    }
+
+    public static <T> Set<T> axioms(Class<T> clazz, OWLAxiom...axioms){
+        return Arrays.stream(axioms).filter(clazz::isInstance).map(clazz::cast).collect(Collectors.toSet());
+    }
+
+    public static OWLClassExpression top(){
+        return data.getOWLThing();
+    }
+
+    public static OWLClassExpression bottom(){
+        return data.getOWLNothing();
+    }
+
+    public static OWLObjectPropertyExpression inv(OWLObjectPropertyExpression p){
+        return data.getOWLObjectInverseOf(p);
+    }
+
+    public static OWLObjectPropertyExpression inv(String p){
+        return inv(property(p));
     }
 }
