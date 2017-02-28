@@ -216,7 +216,7 @@ public class OWLConstructor {
     public static OWLClassAssertionAxiom isA(OWLClassExpression oce, String ind){return isA((oce), individual(ind));}
     public static OWLClassAssertionAxiom isA(String oce, OWLIndividual ind){return isA(concept(oce), (ind));}
 
-    public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectProperty prop, OWLIndividual subject, OWLIndividual object){
+    public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectPropertyExpression prop, OWLIndividual subject, OWLIndividual object){
         return data.getOWLObjectPropertyAssertionAxiom(prop, subject, object);
     }
 
@@ -224,9 +224,9 @@ public class OWLConstructor {
     public static OWLObjectPropertyAssertionAxiom hasA(String prop, String subject, OWLIndividual object){return hasA((prop), individual(subject), (object));}
     public static OWLObjectPropertyAssertionAxiom hasA(String prop, OWLIndividual subject, String object){return hasA((prop), (subject), individual(object));}
     public static OWLObjectPropertyAssertionAxiom hasA(String prop, OWLIndividual subject, OWLIndividual object){return hasA(property(prop), (subject), (object));}
-    public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectProperty prop, String subject, String object){return hasA((prop), individual(subject), individual(object));}
-    public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectProperty prop, String subject, OWLIndividual object){return hasA((prop), individual(subject), (object));}
-    public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectProperty prop, OWLIndividual subject, String object){return hasA((prop), (subject), individual(object));}
+    public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectPropertyExpression prop, String subject, String object){return hasA((prop), individual(subject), individual(object));}
+    public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectPropertyExpression prop, String subject, OWLIndividual object){return hasA((prop), individual(subject), (object));}
+    public static OWLObjectPropertyAssertionAxiom hasA(OWLObjectPropertyExpression prop, OWLIndividual subject, String object){return hasA((prop), (subject), individual(object));}
 
     /**
      * Creates the complement of the provided concept
@@ -280,5 +280,37 @@ public class OWLConstructor {
 
     public static OWLObjectPropertyExpression inv(String p){
         return inv(property(p));
+    }
+
+    public static OWLSubObjectPropertyOfAxiom subProp(OWLObjectPropertyExpression sub, OWLObjectPropertyExpression sup){
+        return data.getOWLSubObjectPropertyOfAxiom(sub, sup);
+    }
+
+    public static OWLSubObjectPropertyOfAxiom subProp(String sub, OWLObjectPropertyExpression sup){
+        return subProp(property(sub), sup);
+    }
+
+    public static OWLSubObjectPropertyOfAxiom subProp(OWLObjectPropertyExpression sub, String sup){
+        return subProp(sub, property(sup));
+    }
+
+    public static OWLSubObjectPropertyOfAxiom subProp(String sub, String sup){
+        return subProp(property(sub), property(sup));
+    }
+
+    public static OWLTransitiveObjectPropertyAxiom trans(OWLObjectPropertyExpression p){
+        return data.getOWLTransitiveObjectPropertyAxiom(p);
+    }
+
+    public static OWLTransitiveObjectPropertyAxiom trans(String s){
+        return trans(property(s));
+    }
+
+    public static OWLSymmetricObjectPropertyAxiom symmetric(OWLObjectPropertyExpression p){
+        return data.getOWLSymmetricObjectPropertyAxiom(p);
+    }
+
+    public static OWLSymmetricObjectPropertyAxiom symmetric(String s){
+        return symmetric(property(s));
     }
 }
