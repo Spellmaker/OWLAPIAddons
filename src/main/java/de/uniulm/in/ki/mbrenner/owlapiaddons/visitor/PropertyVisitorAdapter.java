@@ -2,6 +2,7 @@ package de.uniulm.in.ki.mbrenner.owlapiaddons.visitor;
 
 import org.semanticweb.owlapi.model.*;
 
+import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 /**
@@ -31,6 +32,11 @@ public class PropertyVisitorAdapter implements OWLPropertyExpressionVisitor {
 
     @Override
     public void visit( OWLDataProperty property) {
+        defaultAction.accept(property);
+    }
+
+    @Override
+    public void visit(@Nonnull OWLAnnotationProperty property) {
         defaultAction.accept(property);
     }
 }
