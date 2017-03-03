@@ -258,7 +258,7 @@ public class OWLConstructor {
 
     public static Set<OWLAxiom> axioms(OWLAxiom...axioms){
         Set<OWLAxiom> ax = new HashSet<>();
-        Arrays.stream(axioms).forEach(x -> ax.add(x));
+        Arrays.stream(axioms).forEach(ax::add);
         return ax;
     }
 
@@ -312,5 +312,89 @@ public class OWLConstructor {
 
     public static OWLSymmetricObjectPropertyAxiom symmetric(String s){
         return symmetric(property(s));
+    }
+
+    public static OWLObjectPropertyDomainAxiom domain(OWLObjectPropertyExpression p, OWLClassExpression oce) {
+        return data.getOWLObjectPropertyDomainAxiom(p, oce);
+    }
+
+    public static OWLObjectPropertyDomainAxiom domain(String p, OWLClassExpression oce) {
+        return domain(property(p), oce);
+    }
+
+    public static OWLObjectPropertyDomainAxiom domain(OWLObjectPropertyExpression p, String oce) {
+        return domain(p, concept(oce));
+    }
+
+    public static OWLObjectPropertyDomainAxiom domain(String p, String oce) {
+        return domain(property(p), concept(oce));
+    }
+
+    public static OWLObjectPropertyRangeAxiom range(OWLObjectPropertyExpression p, OWLClassExpression oce) {
+        return data.getOWLObjectPropertyRangeAxiom(p, oce);
+    }
+
+    public static OWLObjectPropertyRangeAxiom range(String p, OWLClassExpression oce) {
+        return range(property(p), oce);
+    }
+
+    public static OWLObjectPropertyRangeAxiom range(OWLObjectPropertyExpression p, String oce) {
+        return range(p, concept(oce));
+    }
+
+    public static OWLObjectPropertyRangeAxiom range(String p, String oce) {
+        return range(property(p), concept(oce));
+    }
+
+    public static OWLDataProperty dproperty(String p) {
+        return data.getOWLDataProperty(IRI.create(prefix + p));
+    }
+
+    public static OWLDataPropertyDomainAxiom dDomain(OWLDataPropertyExpression p, OWLClassExpression oce) {
+        return data.getOWLDataPropertyDomainAxiom(p, oce);
+    }
+
+    public static OWLDataPropertyDomainAxiom dDomain(String p, OWLClassExpression oce) {
+        return dDomain(dproperty(p), oce);
+    }
+
+    public static OWLDataPropertyDomainAxiom dDomain(OWLDataPropertyExpression p, String oce) {
+        return dDomain(p, concept(oce));
+    }
+
+    public static OWLDataPropertyDomainAxiom dDomain(String p, String oce) {
+        return dDomain(dproperty(p), concept(oce));
+    }
+
+    public static OWLDataPropertyAssertionAxiom hasData(OWLDataPropertyExpression p, OWLIndividual a, OWLLiteral b) {
+        return data.getOWLDataPropertyAssertionAxiom(p, a, b);
+    }
+
+    public static OWLDataPropertyAssertionAxiom hasData(String p, OWLIndividual a, OWLLiteral b) {
+        return hasData(dproperty(p), (a), (b));
+    }
+
+    public static OWLDataPropertyAssertionAxiom hasData(OWLDataPropertyExpression p, String a, OWLLiteral b) {
+        return hasData((p), individual(a), (b));
+    }
+
+    public static OWLDataPropertyAssertionAxiom hasData(String p, String a, OWLLiteral b) {
+        return hasData(dproperty(p), individual(a), (b));
+    }
+
+    public static OWLDataPropertyAssertionAxiom hasData(OWLDataPropertyExpression p, OWLIndividual a, String b) {
+        return hasData((p), (a), data.getOWLLiteral(b));
+    }
+
+    public static OWLDataPropertyAssertionAxiom hasData(String p, OWLIndividual a, String b) {
+        return hasData(dproperty(p), (a), data.getOWLLiteral(b));
+    }
+
+    public static OWLDataPropertyAssertionAxiom hasData(OWLDataPropertyExpression p, String a, String b) {
+        return hasData((p), individual(a), data.getOWLLiteral(b));
+    }
+
+    public static OWLDataPropertyAssertionAxiom hasData(String p, String a, String b) {
+        return hasData(dproperty(p), individual(a), data.getOWLLiteral(b));
     }
 }

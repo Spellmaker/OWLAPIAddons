@@ -1,8 +1,10 @@
 package de.uniulm.in.ki.mbrenner.owlapiaddons.visitor;
 
-import org.semanticweb.owlapi.model.*;
+import org.semanticweb.owlapi.model.OWLDataProperty;
+import org.semanticweb.owlapi.model.OWLObjectInverseOf;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
+import org.semanticweb.owlapi.model.OWLPropertyExpressionVisitorEx;
 
-import javax.annotation.Nonnull;
 import java.util.function.Consumer;
 
 
@@ -38,13 +40,6 @@ public class PropertyVisitorAdapterEx<T> implements OWLPropertyExpressionVisitor
 
     @Override
     public T visit(OWLDataProperty property) {
-        defaultAction.accept(property);
-        return null;
-    }
-
-    @Nonnull
-    @Override
-    public T visit(@Nonnull OWLAnnotationProperty property) {
         defaultAction.accept(property);
         return null;
     }
