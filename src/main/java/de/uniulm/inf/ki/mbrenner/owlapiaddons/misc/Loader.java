@@ -1,11 +1,10 @@
-package de.uniulm.in.ki.mbrenner.owlapiaddons.misc;
+package de.uniulm.inf.ki.mbrenner.owlapiaddons.misc;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 import java.io.File;
-import java.nio.file.Paths;
 
 /**
  * Created by spellmaker on 31.08.2016.

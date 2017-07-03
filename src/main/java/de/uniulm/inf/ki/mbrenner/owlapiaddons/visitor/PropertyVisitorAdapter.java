@@ -1,4 +1,4 @@
-package de.uniulm.in.ki.mbrenner.owlapiaddons.visitor;
+package de.uniulm.inf.ki.mbrenner.owlapiaddons.visitor;
 
 import org.semanticweb.owlapi.model.OWLDataProperty;
 import org.semanticweb.owlapi.model.OWLObjectInverseOf;

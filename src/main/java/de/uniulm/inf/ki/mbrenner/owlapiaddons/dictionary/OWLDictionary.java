@@ -1,4 +1,4 @@
-package de.uniulm.in.ki.mbrenner.owlapiaddons.dictionary;
+package de.uniulm.inf.ki.mbrenner.owlapiaddons.dictionary;
 
 import org.semanticweb.owlapi.model.OWLObject;
 

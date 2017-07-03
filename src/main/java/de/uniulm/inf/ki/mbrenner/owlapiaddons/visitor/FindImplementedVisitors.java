@@ -1,7 +1,7 @@
-package de.uniulm.in.ki.mbrenner.owlapiaddons.visitor;
+package de.uniulm.inf.ki.mbrenner.owlapiaddons.visitor;
 
-import de.uniulm.in.ki.mbrenner.owlapiaddons.misc.ClassCounter;
-import de.uniulm.in.ki.mbrenner.owlapiaddons.misc.ConstructorCounter;
+import de.uniulm.inf.ki.mbrenner.owlapiaddons.misc.ClassCounter;
+import de.uniulm.inf.ki.mbrenner.owlapiaddons.misc.ConstructorCounter;
 import org.semanticweb.owlapi.model.OWLOntology;
 
 import java.lang.reflect.Field;

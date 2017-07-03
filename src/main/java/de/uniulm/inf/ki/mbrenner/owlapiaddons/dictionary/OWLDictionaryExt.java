@@ -1,4 +1,4 @@
-package de.uniulm.in.ki.mbrenner.owlapiaddons.dictionary;
+package de.uniulm.inf.ki.mbrenner.owlapiaddons.dictionary;
 
 import org.semanticweb.owlapi.model.OWLObject;
 
@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.function.Predicate;
 
 /**

@@ -1,4 +1,4 @@
-package de.uniulm.in.ki.mbrenner.owlapiaddons.construction;
+package de.uniulm.inf.ki.mbrenner.owlapiaddons.construction;
 
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.*;
@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Basic usage example:
  * <pre>
  *     {@code
- *     import static de.uniulm.in.ki.mbrenner.owlapiaddons.construction.OWLConstructor.*;
+ *     import static OWLConstructor.*;
  *     import org.semanticweb.owlapi.model.*;
  *
  *     public class Main{
@@ -68,6 +68,24 @@ public class OWLConstructor {
     public static OWLIndividual individual(String name){
         return data.getOWLNamedIndividual(IRI.create(prefix + name));
     }
+
+    public static OWLEquivalentClassesAxiom equiv(OWLClassExpression c1, OWLClassExpression c2) {
+        return data.getOWLEquivalentClassesAxiom(c1, c2);
+    }
+
+    public static OWLEquivalentClassesAxiom equiv(String c1, OWLClassExpression c2) {
+        return data.getOWLEquivalentClassesAxiom(concept(c1), c2);
+    }
+
+    public static OWLEquivalentClassesAxiom equiv(OWLClassExpression c1, String c2) {
+        return data.getOWLEquivalentClassesAxiom(c1, concept(c2));
+    }
+
+    public static OWLEquivalentClassesAxiom equiv(String c1, String c2) {
+        return data.getOWLEquivalentClassesAxiom(concept(c1), concept(c2));
+    }
+
+
 
     /**
      * Creates a subClass axiom

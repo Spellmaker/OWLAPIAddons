@@ -1,4 +1,4 @@
-package de.uniulm.in.ki.mbrenner.owlapiaddons.misc;
+package de.uniulm.inf.ki.mbrenner.owlapiaddons.misc;
 
 import java.util.*;
 import java.util.function.Consumer;
